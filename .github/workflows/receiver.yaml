@@ -14,4 +14,4 @@ jobs:
       - name: "Pull desired image"
         run: |
           echo ${{ github.event.client_payload.image_hash }}
-          docker pull ${{ env.REPOSITORY }}/${{ env.BASE_IMAGE }}:${{ github.event.client_payload.image_sha }}
+          docker pull ${{ env.REPOSITORY }}/${{ env.BASE_IMAGE }}@${{ github.event.client_payload.image_sha }}
