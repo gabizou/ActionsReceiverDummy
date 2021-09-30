@@ -1,0 +1,17 @@
+name: "Build from other repository"
+on:
+  repository_dispatch:
+    types: [image_uploaded]
+env:
+  REPOSITORY: ghcr.io
+  BASE_IMAGE: gabizou/golang-ci-actions
+jobs:
+  build:
+    name: "Build new image"
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Pull desired image"
+        run: |
+          echo ${{ github.event.client_payload.image_hash }}
+          docker pull ${{ env.REPOSITORY }}/${{ env.BASE_IMAGE }}:${{ github.event.client_payload.image_sha }}
